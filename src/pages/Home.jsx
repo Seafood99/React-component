@@ -1,5 +1,6 @@
 import React from 'react';
 import PriceCard from '../component/PriceCard';
+import RecipeCards from '../component/RecipeCards';
 
 export default function Home() {
 
@@ -51,8 +52,9 @@ export default function Home() {
                         title={card.title}
                         description={card.description}
                         points={card.points}
-                    />
-                ))}
+                        />
+                    ))}
+                    <RecipeCards/>
             </div>
         </div>
     );
