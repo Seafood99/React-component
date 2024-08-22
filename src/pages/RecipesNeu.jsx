@@ -1,11 +1,10 @@
 import { useEffect, useState } from "react";
 import RecipeCards from "../component/RecipeCards";
 
-
 export default function RecipesNeu() {
-
     const [recipes, setRecipes] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [isDarkTheme, setIsDarkTheme] = useState(false); // State untuk theme
 
     function getRecipes() {
         fetch('https://dummyjson.com/recipes')
@@ -17,13 +16,22 @@ export default function RecipesNeu() {
                 }, 1000);
             });
     }
+
     useEffect(() => {
         getRecipes();
     }, []);
 
+    // Function to toggle the theme
+    const toggleTheme = () => {
+        setIsDarkTheme(!isDarkTheme);
+    };
+
     return (
-        <div className="container grid grid-cols-4 gap-3">
-            
+        <div className={`container grid grid-cols-4 gap-3 ${isDarkTheme ? 'bg-black text-white' : 'bg-white text-black'}`}>
+            <button onClick={toggleTheme} className="absolute top-4 right-4 p-2 border rounded-lg">
+                {isDarkTheme ? 'Light Theme' : 'Dark Theme'}
+            </button>
+
             {
                 loading
                 ? (
@@ -33,8 +41,6 @@ export default function RecipesNeu() {
                                 <p>loading</p>
                         </div>
                 )
-
-
                 :recipes.map(
                     (recipe, index) => (
                         <RecipeCards
@@ -49,4 +55,3 @@ export default function RecipesNeu() {
         </div>
     );
 }
-
